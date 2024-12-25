@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+  <!==========FLATION========!>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+  <!==========SWIPER CSS========!>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!==========CSS========!>
+  <link rel="stylesheet" href="./home.css">
+
+  <title>E-STORE</title>
+</head>
+<body>
+<!--<!==========MAIN========!>-->
+
+<main class="main">
+
+<!--<!==========LOGIN========!>-->
+<section class="login-register__container1">
+  <div class="auth-container">
+    <div class="auth-box login">
+      <h3 class="section__title">Login</h3>
+<!--      data-th-action="@{'/do_login'}"-->
+        <form method="post"  th:action="@{/login}" class="form">
+<!--          <input type="hidden" th:name= "${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+
+        <div th:if="${param.error}" style="color: red;">
+          <p>Invalid username and password.</p>
+        </div>
+        <div th:if="${param.logout}" style="color: green;">
+          <p>You have been logged out.</p>
+        </div>
+
+        <div class="form__group">
+          <input type="email" id="username" name="username" placeholder="username" class="form__input1" required>
+        </div>
+
+        <div class="form__group">
+          <input type="password" id="password" name="password" placeholder="Password" class="form__input1" required>
+        </div>
+
+        <a th:href="@{/forgot}" class="forgot-password">Forgot password</a>
+        <div class="form__btn1">
+          <button type="submit" class="btn btn--sm"><span class="btn1">Login</span></button>
+        </div>
+
+<!--        <br>-->
+<!--        <p class="separator">-->
+<!--          <span>or</span>-->
+<!--        </p>-->
+      </form>
+<!--      <div class="login_option">-->
+<!--        <div class="option">-->
+<!--          <a href="*">-->
+<!--            <img src="./img/googlelogo.png"/>-->
+<!--            <span>Google</span>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="option">-->
+<!--          <a href="*">-->
+<!--            <img src="./img/fecbooklogo.png"/>-->
+<!--            <span>Facbook</span>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <br>-->
+      <br>
+      <p class="form__link">New here? <a href="/register">Register</a></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!--<!==========SWIPER JS========!>-->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+<script src="./main.js"></script>
+</body>
+</html>

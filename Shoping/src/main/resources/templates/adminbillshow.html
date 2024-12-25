@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!==========FLATION========!>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!==========SWIPER CSS========!>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!==========CSS========!>
+    <link rel="stylesheet"href="/home.css">
+
+    <title>E-STORE</title>
+    <style>
+        #searchResults {
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: white;
+        }
+        #searchResults div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #searchResults div:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<!--<!==========HEADER========!>-->
+
+<header class="header">
+    <div class="header__top">
+        <div class="header__container container">
+            <div class="header__contact">
+                <span>(+91)9016123474</span>
+            </div>
+
+            <p class="header__alert-news">
+                Super Value Deals - Save more with coupons
+            </p>
+
+            <a href="/login" class="header__top-action">
+                Login In / Sing Up
+            </a>
+        </div>
+    </div>
+    <nav class="nav container">
+        <a th:href="@{/admin/menu}" class="nav__logo">
+            <img src="/img/estore1-logo.png" class="nav__logo-img">
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+
+            <div class="nav__menu-top">
+                <a th:href="@{/admin/menu}" class="nav__menu-logo">
+                    <img src="/img/estore1-logo.png" alt="">
+                </a>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="fi fi-rs-cross-small"></i>
+                </div>
+            </div>
+
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="/admin/createmovie" class="nav__link">Createmovie</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/admin/finish" class="nav__link">Finish-P</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/admin/billshow" class="nav__link active-link">Billshow</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/admin/headoff" class="nav__link">HeadOffer</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/admin/replace" class="nav__link">Replace</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/admin/createmenu" class="nav__link">ManuCreate</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/logout" class="nav__link">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header__user-actions">
+            <a href="/admin/removeshow" class="header__action-btn">
+                <img src="/img/remove1.png" alt="">
+            </a>
+            <a href="/admin/showall" class="header__action-btn">
+                <img src="/img/show.png" alt="">
+            </a>
+
+            <a href="/admin/menu" class="header__action-btn">
+                <img src="/img/register.png" alt="">
+            </a>
+
+            <div class="header__action-btn nav__toggle" id="nav-toggle">
+                <img src="/img/menu-burger.svg">
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+<!--<!==========MAIN========!>-->
+
+<main class="main">
+
+    <!--<!==========Bill Show========!>-->
+
+    <section class="breadcrumb">
+        <ul class="breadcrumb__list flex container">
+            <li><a th:href="@{/admin/menu}" class="breadcrumb__link">Home</a></li>
+            <li><span class="breadcrumb__link">></span></li>
+            <li><span class="breadcrumb__link">BillShow</span></li>
+        </ul>
+    </section>
+
+    <!--<!==========LOGIN========!>-->
+
+    <section class="productshow__admin section--lg container">
+        <div class="tab__content1" >
+            <h3 class="tab__header">Bill Show</h3>
+            <div class="header__search1">
+                <input type="text" id="keyword" placeholder="Search for bill.." autocomplete="off" class="from__inpute"/>
+                <div id="searchResults"></div>
+<!--                <button class="serach__btn1">-->
+<!--                    <img src="./img/search.png" alt="">-->
+<!--                </button>-->
+            </div>
+
+            <div class="tab__body">
+                <div th:if="${finalo != null && #lists.size(finalo) > 0}">
+                <table class="placed__order-table">
+                    <tr>
+                        <th>Bill_Id</th>
+                        <th>Date</th>
+                        <th>Gmail</th>
+                        <th>Mobli_no.</th>
+                        <th>Delivery</th>
+                        <th>View_bill</th>
+                    </tr>
+
+                    <tr th:each="fo : ${finalo}">
+                        <td th:text="${fo.bill_id}">#1257</td>
+                        <td th:text="${fo.date}">12/3/2022</td>
+                        <td th:text="${fo.user.username}">@gmail.com</td>
+                        <td th:text="${fo.user.phone_no}">1234567890</td>
+                        <td>
+                            <span th:if="${fo.orderok == false}">❌</span>
+                            <span th:if="${fo.orderok == true}">✅</span>
+                        </td>
+                        <td><a th:href="@{/bill/{id}(id=${fo.bill_id})}" class="btn btn btn--sm">View</a> </td>
+                    </tr>
+
+                </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<!==========NEWSLETTER========!>-->
+
+    <section class="newsletter section home__newsletter">
+        <div class="newsletter__container container grid">
+
+            <p class="newsletter__description">
+                Join us on WhatsApp to get daily offers!&nbsp;&nbsp;&nbsp;
+                <a href="https://chat.whatsapp.com/GV7tRTt7L86El4OEOc7cd2" class="btn">Join Now</a>
+            </p>
+
+        </div>
+    </section>
+</main>
+
+<!--<!==========FOOTER========!>-->
+
+<footer class="footer container">
+    <div class="footer__container grid">
+        <div class="footer__content">
+            <a href="index.html" class="footer__logo">
+                <img src="/img/estore1-logo.png" alt="" class="footer__logo-img">
+            </a>
+
+            <h4 class="footer__subtitle">Content</h4>
+
+            <p class="footer__description">
+                <span>Address:</span> 5622 wellington road,street 32,san Francisco
+            </p>
+
+            <p class="footer__description">
+                <span>Phone:</span> (+91) 9016123474 /(+91) 9016123634
+            </p>
+
+            <p class="footer__description">
+                <span>Hours:</span> 10:00 - 18:00, mon - sat
+            </p>
+
+            <div class="footer__social">
+                <h4 class="footer__subtitle">Follow Me</h4>
+
+                <div class="footer__social-links flex">
+                    <a href="">
+                        <img src="/img/icon-facebook.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-twitter.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-instagram.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-pinterest.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-youtube.svg" alt="" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">Address</h3>
+
+            <ul class="footer__links">
+                <li><a href="" class="footer__link">About Us</a> </li>
+                <li><a href="" class="footer__link">Delivery Information</a> </li>
+                <li><a href="" class="footer__link">Privacy Policy</a> </li>
+                <li><a href="" class="footer__link">terms & Conditions</a> </li>
+                <li><a href="" class="footer__link">Contact Us</a> </li>
+                <li><a href="" class="footer__link">Support Center</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">My Account</h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="/logout" class="footer__link">Logout</a>
+                </li>
+                <li><a th:href="@{/admin/createmovie}" class="footer__link">Createmovie</a> </li>
+                <li><a th:href="@{/admin/billshow}" class="footer__link">Billshow</a> </li>
+                <li><a th:href="@{/admin/replace}" class="footer__link">Replace</a> </li>
+                <li><a th:href="@{/admin/finish}" class="footer__link">Finish-P</a> </li>
+                <li><a th:href="@{/admin/headoff}" class="footer__link">Headoffer</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__title">
+            <h3 class="footer__title">Secured Payment Gateways</h3>
+
+            <img src="/img/payment-method.png" alt="" class="payment__img">
+        </div>
+    </div>
+
+    <div class="footer__bottom">
+        <p class="copyright">&copy; 2024 E-Store.in. All rights reserved</p>
+        <span class="designer">Devlope by DarshanDhaduk</span>
+        <!--            <span class="designer">Designed by DarshanDhaduk And SnehDhanani</span>-->
+    </div>
+</footer>
+
+<!--<!==========SEARCH JS========!>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+      $('#keyword').on('input', function () {
+          var keyword = $(this).val();
+          if (keyword.length > 0) {
+              $.get('/search1?keyword=' + keyword, function (data) {
+                  $('#searchResults').empty();
+                            console.log(data.length);
+                  if (data.length > 0) {
+                      data.forEach(function (finalorder) {
+                          $('#searchResults').append('<div class="link"><a href="/bill/' + finalorder.bill_id + '">' + finalorder.bill_id + '</a></div>');
+                      });
+                  } else {
+                      $('#searchResults').append('<div>No products found</div>');
+                  }
+              });
+          } else {
+              $('#searchResults').empty();
+          }
+      });
+  });
+</script>
+
+<!--<!==========SWIPER JS========!>-->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+<script src="/main.js"></script>
+</body>
+</html>

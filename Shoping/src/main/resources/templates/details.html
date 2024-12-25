@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!==========FLATION========!>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!==========SWIPER CSS========!>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!==========CSS========!>
+    <link rel="stylesheet"href="/home.css">
+
+    <title>E-STORE</title>
+</head>
+<body>
+
+<!--<!==========HEADER========!>-->
+
+<header class="header">
+    <div class="header__top">
+        <div class="header__container container">
+            <div class="header__contact">
+                <span>(+91)9016123474</span>
+            </div>
+
+            <p class="header__alert-news">
+                Super Value Deals - Save more with coupons
+            </p>
+
+            <a href="/login" class="header__top-action">
+                Login In / Sing Up
+            </a>
+        </div>
+    </div>
+    <nav class="nav container">
+        <a href="/home" class="nav__logo">
+            <img src="/img/estore1-logo.png" class="nav__logo-img">
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <div class="nav__menu-top">
+                <a href="/home" class="nav__menu-logo">
+                    <img src="/img/estore1-logo.png" alt="">
+                </a>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="fi fi-rs-cross-small"></i>
+                </div>
+            </div>
+
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a th:href="@{/home}" class="nav__link">Home</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/menushow}" class="nav__link">Shop</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/account}" class="nav__link">My Account</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/buymovie}" class="nav__link">BuyMovies</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/login" th:if="${usern==0}" class="nav__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="nav__link">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header__user-actions">
+            <a th:href="@{/user/whishlist}" class="header__action-btn">
+                <img src="/img/icon-heart.svg" alt="">
+                <span class="count" th:text="${w}"></span>
+            </a>
+
+            <a th:href="@{/user/cartorder}" class="header__action-btn">
+                <img src="/img/icon-cart.svg" alt="">
+                <span class="count" th:text="${c}"></span>
+            </a>
+
+            <div class="header__action-btn nav__toggle" id="nav-toggle">
+                <img src="/img/menu-burger.svg">
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--<!==========BREADCRUMB========!>-->
+
+<section class="breadcrumb">
+    <ul class="breadcrumb__list flex container">
+        <li><a href="/home" class="breadcrumb__link">Home</a></li>
+        <li><span class="breadcrumb__link">></span></li>
+        <li><span class="breadcrumb__link">Details</span></li>
+    </ul>
+</section>
+
+<!--<!==========DETAILS========!>-->
+
+<section class="details section--lg">
+    <div class="details__container container grid">
+
+        <div class="details__group">
+            <img id="main-image" th:src="@{/img/{id}/{name}(id=${color1.color_id}, name='i1')}" class="imgdetails" alt="Product Image">
+            <div class="details__small-images grid" id="thumbnail-container">
+                <img th:src="@{/img/{id}/{name}(id=${color1.color_id}, name='i1')}" onclick="updateMainImage(this.src)">
+                <img th:src="@{/img/{id}/{name}(id=${color1.color_id}, name='i2')}" onclick="updateMainImage(this.src)">
+                <img th:src="@{/img/{id}/{name}(id=${color1.color_id}, name='i3')}" onclick="updateMainImage(this.src)">
+                <img th:src="@{/img/{id}/{name}(id=${color1.color_id}, name='i4')}" onclick="updateMainImage(this.src)">
+            </div>
+        </div>
+
+<!--            <div class="details__group">-->
+<!--                <div id="main-image" class="details__img-container">-->
+<!--                    <img src="../static/img/product-8-1.jpg" alt="Main Product Image" class="details__img">-->
+<!--                    <img th:src="@{/imgp/{id}/{name}(id=${products.product_id}, name='i1')}" class="details__img" alt="Product Image">-->
+<!--                </div>-->
+<!--                <div id="thumbnails" class="details__small-images grid"></div>-->
+<!--            </div>-->
+
+        <div class="details__group">
+            <h3 class="details__title" th:text="${products.product_name}">Henley Shirt</h3>
+            <p class="details__brand">Brands: <span th:text="${products.brand}">adidas</span></p>
+
+            <div class="details__price flex">
+                <span class="save__price" th:text="'-'+${products.localoff}+'%'">-25% </span>
+                <span class="new__price" th:text="'₹'+${products.price}">₹238</span><br>
+                <h6>M.R.P<span class="old__price" th:text="'₹'+${products.price+((products.price * products.localoff)/100)}">₹245</span></h6>
+            </div>
+
+            <p class="short__description" th:text="${products.product_details}">
+                Hurry. Its for just 7 days. Shop only at adidas now & get Flat 50% off on all fav products.
+                adidas Freedom Sale is here.
+                Shop now and grab Flat 50% off on select range of products.
+                Cash on Delivery. Free Shipping
+            </p>
+
+            <ul class="product__list">
+                <li class="list__item flex">
+                    <i class="fi-rs-crown"></i> <span th:text="${products.warranty}">1</span> year al <span th:text="${products.brand}">jazeera</span> brand warranty
+                </li>
+
+                <li class="list__item flex">
+                    <i class="fi-rs-refresh"></i> <span th:text="${products.returnday}">30</span> day return policy
+                </li>
+
+                <br>
+                <li class="list__item flex">
+                    <span class="offer">
+                    <i class="fas fa-tag offer-icon"></i> Offer
+                    </span>
+                </li>
+
+                <li class="list__item flex">
+                    <p class="offer-text">
+                        save <span class="highlight" th:text="${products.coupon}+'P'">1000</span> with coupon
+                    </p>
+                </li>
+
+                <li class="list__item flex">
+                    <p class="offer-text">
+                        If you have a E-Store point worth <span class="highlight" th:text="${products.coupon_price}+'p'">1800p</span> or more,
+                        get <span class="highlight" th:text="${products.coupon_off}+'% off'">5% off</span> on this product!
+                    </p>
+                </li>
+
+                <li class="list__item flex">
+                    <p class="offer-text">
+                        Get GST invoice and save up to on business purchases<span class="highlight" th:text="${products.gst}+'%'"> 28%</span> on business purchases.
+                    </p>
+                </li>
+            </ul>
+
+            <form th:action="@{/user/do_cartorder/{id1}(id1=${products.product_id})}" method="post">
+
+            <div class="details__color flex">
+                <span class="details__color-title">Color</span>
+
+            <!--COLOR LIST-->
+                <ul class="color__list">
+                    <input type="radio" name="colorOption" th:value="${color1?.color_id}" style="display: contents;" checked>
+                    <li class="abc">
+                    <label class="color-label" th:style="'background-color:' + ${colors.colorcode}" th:each="colors : ${color}">
+                    <input type="radio" name="colorOption" th:value="${colors.color_id}" class="color__link" th:attr="data-color-id=${colors.color_id}" onclick="updateColor(this)">
+                    </label>
+
+<!--                    <label class="color-label" style="background-color: hsl(300, 100%, 67%)">-->
+<!--                    <input type="radio" name="selectedColor" value="Red" class="color__link" onclick="updateColor('2')" required>-->
+<!--                    </label>-->
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="details__size flex">
+                <span class="list__item flex">FREE delivery<span class="product__category1"> in <span th:text="${products.free_delivery}">2</span> days </span>or fastest delivery<span class="product__category1"> in <span th:text="${products.faster_delivery}">12</span> hours</span></span>
+            </div>
+
+            <div class="details__action">
+                <input type="number" class="quantity" name="quntity" value="1">
+
+                <button type="submit" class="btn btn--sm"><span class="btn1">Add to Cart</span></button>
+
+                <a th:href="@{/user/savelike/{id}(id=${products.product_id})}" class="details__action-btn">
+                    <i class="fi fi-rs-heart"></i>
+                </a>
+            </div>
+                <div style="color: red;" th:text="${error}">
+
+                </div>
+            </form>
+
+            <ul class="details__meta">
+                <li class="meta__list flex"><span class="product__category1" th:text="${menu.fd_1}+':'">SKU:</span><span th:text="${products.fd_1}">FWM15VKT</span></li>
+                <li class="meta__list flex"><span class="product__category1" th:text="${menu.fd_2}+':'">SKU:</span><span th:text="${products.fd_2}">FWM15VKT</span></li>
+                <li class="meta__list flex"><span class="product__category1" th:text="${menu.fd_3}+':'">SKU:</span><span th:text="${products.fd_3}">FWM15VKT</span></li>
+                <li class="meta__list flex"><span class="product__category1" th:text="${menu.fd_4}+':'">SKU:</span><span th:text="${products.fd_4}">FWM15VKT</span></li>
+<!--                <li class="meta__list flex"><span class="product__category1">SKU:</span> FWM15VKT</li>-->
+            </ul>
+        </div>
+    </div>
+
+</section>
+
+<!--<!==========DETAILS TAB========!>-->
+
+<section class="details__tab container">
+    <div class="detail__tabs">
+        <span class="detail__tab active-tab" data-target="#info">
+            Additional Info
+        </span>
+        <span class="detail__tab" data-target="#reviews" th:text="'Review('+${products.total_star}+')'">Review(3)</span>
+    </div>
+
+    <div class="details__tabs-content">
+
+        <div class="details__tab-content active-tab" content id="info">
+            <table class="info__table" >
+                <tr th:each="item1 : ${detailsp}" th:if="${item1.key != ''}">
+                    <th th:text="${item1.key}">Stand up</th>
+                    <td th:if="${item1.value != ''}" th:text="${item1.value}">53"l*24'm(front to back wheel)</td>
+                    <td th:unless="${item1.value != ''}"> - </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="details__tab-content" content id ="reviews">
+            <div class="reviews__container grid">
+
+                <div class="review__single" th:each="rate : ${rating}">
+
+                    <div class="review__data">
+                        <h4 class="review__title" th:text="${rate.name}">Jacky Chan</h4>
+                        <br>
+                        <div class="review__rating">
+                            <i th:if="${rate.star_no > 4}" class="fi fi-rs-star chackedd"></i>
+                            <i th:unless="${rate.star_no > 4}" class="fi fi-rs-star"></i>
+                            <i th:if="${rate.star_no > 3}" class="fi fi-rs-star chackedd"></i>
+                            <i th:unless="${rate.star_no > 3}" class="fi fi-rs-star"></i>
+                            <i th:if="${rate.star_no > 2}" class="fi fi-rs-star chackedd"></i>
+                            <i th:unless="${rate.star_no > 2}" class="fi fi-rs-star"></i>
+                            <i th:if="${rate.star_no > 1}" class="fi fi-rs-star chackedd"></i>
+                            <i th:unless="${rate.star_no > 1}" class="fi fi-rs-star"></i>
+                            <i th:if="${rate.star_no > 0}" class="fi fi-rs-star chackedd"></i>
+                        </div>
+
+                        <p class="review__description" th:text="${rate.description}">
+                           Thank you very fast shipping from poland only 3days.
+                        </p>
+
+                        <span class="review__data">
+                        <span  th:text="${#temporals.format(rate.date, 'MMMM dd, yyyy hh:mm a')}"></span>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="review__form" th:if="${reviewt == 't'}">
+                <h4 class="review__form-title">Add a review</h4>
+                <form th:action="@{/do_review/{id1}(id1=${products.product_id})}" method="post" class="form grid">
+                <div class="rate">
+                    <input type="radio" id="star5" name="star_no" value="5">
+                    <label for="star5" title="text">5 star</label>
+
+                    <input type="radio" id="star4" name="star_no" value="4">
+                    <label for="star4" title="text">4 star</label>
+
+                    <input type="radio" id="star3" name="star_no" value="3">
+                    <label for="star3" title="text">3 star</label>
+
+                    <input type="radio" id="star2" name="star_no" value="2">
+                    <label for="star2" title="text">2 star</label>
+
+                    <input type="radio" id="star1" name="star_no" value="1">
+                    <label for="star1" title="text">1 star</label>
+                </div>
+
+                    <textarea class="form__input textarea" name="description" placeholder="Write Comment"></textarea>
+
+                    <div class="form__btn">
+                        <button class="btn" type="submit">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--<!==========PRODUCTS========!>-->
+
+<section class="product container section--lg">
+    <h3 class="section__title"><span>Related</span> Products</h3>
+
+    <div class="products__container grid">
+
+        <div class="product__item" th:each="itemr : ${releated}">
+            <div class="product__banner">
+                <a th:href="@{/detail/{id}(id=${itemr.product_id})}" class="product__images">
+                    <img th:src="@{/imgp/{id}/{name}(id=${itemr.product_id}, name='i1')}" class="product__img default" alt="Product Image">
+<!--                    <img src="../static/img/product-2-1.jpg" alt="" class="product__img default">-->
+
+                    <img th:src="@{/imgp/{id}/{name}(id=${itemr.product_id}, name='im1')}" class="product__img hover" alt="Product Image">
+<!--                    <img src="../static/img/product-2-2.jpg" alt="" class="product__img hover">-->
+                </a>
+
+                <div class="product__actions">
+                    <a th:href="@{/detail/{id}(id=${itemr.product_id})}" class="action__btn" aria-label="Quick View">
+                        <i class="fi fi-rs-eye"></i>
+                    </a>
+
+                    <a th:href="@{/user/savelike/{id}(id=${itemr.product_id})}" class="action__btn" aria-label="Add To Wishlist">
+                        <i class="fi fi-rs-heart"></i>
+                    </a>
+
+                </div>
+
+                <div class="product__badge light-orange" th:text="${itemr.localoff}+'%'">Hot</div>
+            </div>
+
+            <div class="product__content">
+                <span class="product__category" th:text="${itemr.name}">Clothing</span>
+                <a th:href="@{/detail/{id}(id=${itemr.product_id})}">
+                    <h3 class="product__title" th:text="${itemr.product_name}">Colorful pattren Shirts</h3>
+                </a>
+
+                <div class="product__rating">
+                    <i class="fi fi-rs-star" th:if="${itemr.total_star == 0}"> <span class="product__category" th:text="${0} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                    <i class="fi fi-rs-star" th:if="${itemr.total_star != 0}"> <span class="product__category" th:text="${itemr.total_star_count/itemr.total_star} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                </div>
+
+                <div class="product__price flex">
+                    <span class="new__price" th:text="${itemr.price}+'P'">₹238</span><br>
+                    <h6>M.R.P<span class="old__price" th:text="'₹'+${itemr.price+((itemr.price * itemr.localoff)/100)}">₹245</span></h6>
+                </div>
+                <span class="product__category2"><span class="product__category3" th:text="'save '+${itemr.coupon}+'P'">save ₹1000</span> with coupon<br></span>
+                <span class="product__category2">FREE delivery<span class="product__category1" th:text="'in '+${itemr.free_delivery}+' days'"> in 2 days</span></span><br>
+                <span class="product__category2">Or fastest delivery<span class="product__category1" th:text="'in '+${itemr.faster_delivery}+' days'"> in 1 days</span></span>
+
+                <a th:href="@{/detail/{id}(id=${itemr.product_id})}" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <i class="fi fi-rs-shopping-bag-add"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!--<!==========NEWSLETTER========!>-->
+
+<section class="newsletter section home__newsletter">
+    <div class="newsletter__container container grid">
+
+        <p class="newsletter__description">
+            Join us on WhatsApp to get daily offers!&nbsp;&nbsp;&nbsp;
+            <a href="https://chat.whatsapp.com/GV7tRTt7L86El4OEOc7cd2" class="btn">Join Now</a>
+        </p>
+
+    </div>
+</section>
+</main>
+
+<!--<!==========FOOTER========!>-->
+
+<footer class="footer container">
+    <div class="footer__container grid">
+        <div class="footer__content">
+            <a href="index.html" class="footer__logo">
+                <img src="/img/estore1-logo.png" alt="" class="footer__logo-img">
+            </a>
+
+            <h4 class="footer__subtitle">Content</h4>
+
+            <p class="footer__description">
+                <span>Address:</span> 5622 wellington road,street 32,san Francisco
+            </p>
+
+            <p class="footer__description">
+                <span>Phone:</span> (+91) 9016123474 /(+91) 9016123634
+            </p>
+
+            <p class="footer__description">
+                <span>Hours:</span> 10:00 - 18:00, mon - sat
+            </p>
+
+            <div class="footer__social">
+                <h4 class="footer__subtitle">Follow Me</h4>
+
+                <div class="footer__social-links flex">
+                    <a href="">
+                        <img src="/img/icon-facebook.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-twitter.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-instagram.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-pinterest.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-youtube.svg" alt="" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">Address</h3>
+
+            <ul class="footer__links">
+                <li><a href="" class="footer__link">About Us</a> </li>
+                <li><a href="" class="footer__link">Delivery Information</a> </li>
+                <li><a href="" class="footer__link">Privacy Policy</a> </li>
+                <li><a href="" class="footer__link">terms & Conditions</a> </li>
+                <li><a href="" class="footer__link">Contact Us</a> </li>
+                <li><a href="" class="footer__link">Support Center</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">My Account</h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="/login" th:if="${usern==0}" class="footer__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="footer__link">Logout</a>
+                </li>
+                <li><a th:href="@{/user/cartorder}" class="footer__link">View Cart</a> </li>
+                <li><a th:href="@{/user/whishlist}" class="footer__link">My Wishlist</a> </li>
+                <li><a href="" class="footer__link">track My Order</a> </li>
+                <li><a href="" class="footer__link">Help</a> </li>
+                <li><a href="" class="footer__link">Order</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__title">
+            <h3 class="footer__title">Secured Payment Gateways</h3>
+
+            <img src="/img/payment-method.png" alt="" class="payment__img">
+        </div>
+    </div>
+
+    <div class="footer__bottom">
+        <p class="copyright">&copy; 2024 E-Store.in. All rights reserved</p>
+        <span class="designer">Devlope by DarshanDhaduk</span>
+        <!--            <span class="designer">Designed by DarshanDhaduk And SnehDhanani</span>-->
+    </div>
+</footer>
+
+<!--<!==========COLOR JS========!>-->
+<script>
+       function updateMainImage(src) {
+           document.getElementById("main-image").src = src;
+       }
+
+       function updateColor(element) {
+           var colorid = element.getAttribute('data-color-id');
+           const thumbnailContainer = document.getElementById("thumbnail-container");
+           const images = {
+             1: [`/img/${colorid}/i1`, `/img/${colorid}/i2`, `/img/${colorid}/i3`, `/img/${colorid}/i4`]
+         };
+
+           // Update Main Image to First Image of Selected Color
+           document.getElementById("main-image").src = images[1][0];
+
+           // Update Thumbnails
+           thumbnailContainer.innerHTML = images[1]
+               .map(img => `<img src="${img}" onclick="updateMainImage('${img}')">`)
+               .join("");
+       }
+</script>
+
+<!--<!==========SWIPER JS========!>-->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+<script src="/main.js"></script>
+</body>
+</html>
+
+<!--LIST DATA CREATE-->
+
+<!--<ul>-->
+<!--    <li th:each="item : ${items}">-->
+<!--        <a href="#" class="color__link"-->
+<!--           th:data-images="${item.images}"-->
+<!--           th:style="'background-color: ' + ${item.backgroundColor}">-->
+<!--            <img th:id="'video-thumbnail-' + ${item.id}"-->
+<!--                 th:src="${item.thumbnail}"-->
+<!--                 alt="Video Thumbnail"-->
+<!--                 style="display:none;">-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</ul>-->
+
+<!--ALAL-ALAG IMG CREATE-->
+<!--                    <li>-->
+<!--                        <a href="#" class="color__link"-->
+<!--                           data-images='["/img/product-8-1.jpg", "/img/product-8-2.jpg", "/img/product-8-2.jpg", "path_to_your_video.mp4"]'-->
+<!--                           th:style="'background-color:' + ${colors.colorcode}">-->
+<!--                            <img id="video-thumbnail-1"  th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i4')}" alt="Video Thumbnail" style="display:none;">-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                <ul class="color__list" th:each="colors : ${color}">-->
+<!--                    <li>-->
+<!--                        <a href="#" class="color__link"-->
+<!--                           data-images='[`/img/${colors.color_id}/i1`, `/img/${colors.color_id}/i3`, `/img/${colors.color_id}/i2`, "path_to_your_video.mp4"]'-->
+<!--                           style="background-color: hsl(353, 100%, 67%)">-->
+<!--                            <img id="video-thumbnail-1" src="../static/img/product-1-2.jpg" alt="Video Thumbnail" style="display:none;">-->
+<!--                        </a>-->
+<!--                    </li>-->
+
+<!--                    <li>-->
+<!--                        <a href="#" class="color__link"-->
+<!--                           data-images='["../static/img/product-1-1.jpg", "../static/img/product-1-2.jpg", "../static/img/product-3-2.jpg"", "path_to_your_video.mp4"]'-->
+<!--                           style="background-color: hsl(353, 100%, 67%)">-->
+<!--                            <img id="video-thumbnail-2" src="../static/img/product-1-2.jpg" alt="Video Thumbnail" style="display:none;">-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <ul class="color__list">-->
+
+<!--                    <li class="abc" th:each="colors : ${color}">-->
+<!--                        <label class="color-label" th:style="'background-color:' + ${colors.colorcode}">-->
+<!--                            <input type="radio" name="colorOption" class="color__link" th:value="${colors.color_id}">-->
+<!--                        </label>-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!-- Hidden images to store data -->
+<!--                <div th:each="colors : ${color}">-->
+<!--                <div id="image-data" style="display: none;">-->
+<!--                    <img th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i1')}" data-option="${colors.color_id}" class="color-image">-->
+<!--                    <img th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i2')}" data-option="${colors.color_id}" class="color-image">-->
+<!--                    <img th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i3')}" data-option="${colors.color_id}" class="color-image">-->
+<!--                    <video controls style="display: none;" data-option="${colors.color_id}">-->
+<!--                        <source th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i5')}" type="video/mp4">-->
+<!--                    </video>-->
+<!--                    <img id="video-thumbnail-2" th:src="@{/img/{id}/{name}(id=${colors.color_id}, name='i4')}" alt="Video Thumbnail" data-option="${colors.color_id}" class="color-image">-->
+<!--                </div>-->
+<!--                </div>-->
+<!--<ul>-->
+<!--    <li th:each="item : ${items}">-->
+<!--        <a href="#" class="color__link"-->
+<!--           th:attr="data-images='[' + ${item.image1} + ', ' + ${item.image2} + ', ' + ${item.image3} + ', ' + ${item.video} + ']'"-->
+<!--           th:style="'background-color: ' + ${item.backgroundColor}">-->
+<!--            <img th:id="'video-thumbnail-' + ${item.id}"-->
+<!--                 th:src="${item.thumbnail}"-->
+<!--                 alt="Video Thumbnail"-->
+<!--                 style="display:none;">-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</ul>-->

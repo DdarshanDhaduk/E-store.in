@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+  <!==========FLATION========!>
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+  <!==========SWIPER CSS========!>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <!==========CSS========!>
+  <link rel="stylesheet" href="./home.css">
+
+  <title>E-STORE</title>
+  <style>
+    .herror2{
+        color: red;
+        margin-left: 5px;
+        margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<!--<!==========MAIN========!>-->
+
+<main class="main">
+
+  <!--<!==========LOGIN========!>-->
+  <section class="login-register__container1">
+    <div class="auth-container">
+      <div class="auth-box login">
+        <h3 class="section__title">Welcome back</h3>
+
+        <form action="#" th:action="@{/do_register}" method="post" class="form">
+
+          <div class="form__group">
+            <input type="email" name="username" th:value="${user?.username}" placeholder="username" class="form__input1">
+            <div class="herror2" th:if="${error!= null}" th:text="${error['username']}"></div>
+            <div class="herror2" th:text="${error2}"></div>
+          </div>
+
+          <div class="form__group">
+            <input type="password" name="password" placeholder="Password" class="form__input1" required>
+          </div>
+
+          <div class="form__group">
+            <input type="password"  name="password1" placeholder="Confing password" class="form__input1">
+            <div class="herror2" th:text="${error1}"></div>
+          </div>
+
+          <div class="form__group">
+            <input type="text" name="name" placeholder="Your Name" th:value="${user?.name}" class="form__input1">
+            <div class="herror2" th:if="${error!= null}" th:text="${error['name']}"></div>
+          </div>
+
+          <div class="form__group">
+            <input type="text"  name="phone_no" placeholder="Phone_no." th:value="${user?.phone_no}" class="form__input1">
+            <div class="herror2" th:if="${error!= null}" th:text="${error['phone_no']}"></div>
+          </div>
+
+          <div class="form__btn1">
+            <button class="btn btn--sm"><span class="btn1">register</span></button>
+          </div>
+          <br>
+<!--          <p class="separator">-->
+<!--            <span>or</span>-->
+<!--          </p>-->
+<!--        </form>-->
+<!--        <div class="login_option">-->
+<!--          <div class="option">-->
+<!--            <a href="*">-->
+<!--              <img src="./img/googlelogo.png"/>-->
+<!--              <span>Google</span>-->
+<!--            </a>-->
+<!--          </div>-->
+
+<!--          <div class="option">-->
+<!--            <a href="*">-->
+<!--              <img src="./img/fecbooklogo.png"/>-->
+<!--              <span>Facbook</span>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <br>-->
+        <p class="form__link">Already have an account? <a href="/login">Login</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- register page alah thi banava no code-->
+  <!--<body>-->
+  <!--<div class="auth-container">-->
+  <!--  <div class="auth-box register">-->
+  <!--    <h3 class="section__title">Register</h3>-->
+  <!--    <form action="" class="form">-->
+  <!--      <input type="text" placeholder="Your Username" class="form__input">-->
+  <!--      <input type="email" placeholder="Your Email" class="form__input">-->
+  <!--      <input type="password" placeholder="Your Password" class="form__input">-->
+  <!--      <div class="form__btn">-->
+  <!--        <button class="btn">Register</button>-->
+  <!--      </div>-->
+  <!--    </form>-->
+  <!--    <p class="form__link">Already have an account? <a href="login.html">Login</a></p>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--</body>-->
+</main>
+
+<!--<!==========SWIPER JS========!>-->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+<script src="./main.js"></script>
+</body>
+</html>

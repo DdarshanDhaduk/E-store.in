@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!==========FLATION========!>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!==========SWIPER CSS========!>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!==========CSS========!>
+    <link rel="stylesheet"href="/home.css">
+
+    <title>E-STORE</title>
+</head>
+<body>
+<!--<!==========HEADER========!>-->
+
+<header class="header">
+    <div class="header__top">
+        <div class="header__container container">
+            <div class="header__contact">
+                <span>(+91)9016123474</span>
+            </div>
+
+            <p class="header__alert-news">
+                Super Value Deals - Save more with coupons
+            </p>
+
+            <a href="/login" class="header__top-action">
+                Login In / Sing Up
+            </a>
+        </div>
+    </div>
+    <nav class="nav container">
+        <a href="/home" class="nav__logo">
+            <img src="/img/estore1-logo.png" class="nav__logo-img">
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <div class="nav__menu-top">
+                <a href="/home" class="nav__menu-logo">
+                    <img src="/img/estore1-logo.png" alt="">
+                </a>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="fi fi-rs-cross-small"></i>
+                </div>
+            </div>
+
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a th:href="@{/home}" class="nav__link">Home</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/menushow}" class="nav__link">Shop</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/account}" class="nav__link">My Account</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/buymovie}" class="nav__link">BuyMovies</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/login" th:if="${usern==0}" class="nav__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="nav__link">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header__user-actions">
+            <a th:href="@{/user/whishlist}" class="header__action-btn">
+                <img src="/img/icon-heart.svg" alt="">
+                <span class="count" th:text="${w}"></span>
+            </a>
+
+            <a th:href="@{/user/cartorder}" class="header__action-btn">
+                <img src="/img/icon-cart.svg" alt="">
+                <span class="count" th:text="${c}"></span>
+            </a>
+
+            <div class="header__action-btn nav__toggle" id="nav-toggle">
+                <img src="/img/menu-burger.svg">
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--<!==========MAIN========!>-->
+
+<main class="main">
+
+    <!--<!==========BREADCRUMB========!>-->
+
+    <section class="breadcrumb">
+        <ul class="breadcrumb__list flex container">
+            <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+            <li><span class="breadcrumb__link">></span></li>
+            <li><span class="breadcrumb__link">Menucreate</span></li>
+        </ul>
+    </section>
+
+    <!--<!==========CONFOMORDER========!>-->
+
+    <section class="login-register__container1">
+        <div class="auth-container1">
+            <div class="auth-box login">
+                <h3 class="section__title">Confome Order</h3>
+
+                <form action="#" th:action="@{/user/do_ordersubmit}" method="post" class="form">
+
+                    <div class="form__group">
+                        <h4 class="submitorder">Youre Address</h4>
+                        <div class="tab__body1">
+                            <address class="address" th:if="${user.home_no < 4999}">
+                                <span th:text="${user.home_no}+','"> 42</span> <span th:text="${user.street_name}+','">managal dip soc 2</span>
+                                <span th:text="${user.area}+','">varachha</span> <br>
+                                <span th:text="${user.city}+','">surat</span>
+                                <span th:text="${user.district+','}">surat</span>
+                                <span th:text="${user.state}+','">gujrat</span> <br>
+                                <span th:text="${user.pincode}+'.'">395006</span>
+                            </address>
+                            <br>
+                            <a th:href="@{/user/editaddress}" class="btn btn--sm">Edit</a>
+                        </div>
+                    </div>
+
+                    <div class="form__group">
+                        <h4 class="submitorder">Youre Contact Number</h4>
+                        <input type="text" name="phone_no" placeholder="Phone_No" th:value="${user.phone_no}"  class="form__input1">
+                    </div>
+
+                    <div class="form__group">
+                        <h4 class="submitorder">Delivery Type</h4>
+                        <div class="payment__option flex">
+                            <input type="radio" name="radio" class="payment__input" value="1" checked>
+                            <label class="payment__lable">Free Delevery in 2 day</label>
+                        </div>
+                        <div class="payment__option flex">
+                            <input type="radio" name="radio" class="payment__input" value="2">
+                            <label class="payment__lable">₹100 Faster Delevery in 24 hours</label>
+                        </div>
+                    </div>
+
+                    <div class="form__group">
+                        <h4 class="submitorder">Coupon code</h4>
+                        <input type="text" name="Coupon_code" placeholder="Coupon Code" class="form__input1">
+                    </div>
+
+                    <div class="form__group">
+                        <h4 class="submitorder">Payment Method Type</h4>
+                        <div class="payment__option flex">
+                            <input type="radio" name="radio1" class="payment__input" value="1" checked>
+                            <label class="payment__lable">Cash On Deliviry</label>
+                        </div>
+                        <div class="payment__option flex">
+                            <input type="radio" name="radio1" class="payment__input" value="2">
+                            <label class="payment__lable">Online Payment Now</label>
+                        </div>
+                    </div>
+
+                    <div class="form__btn1">
+                        <button class="btn btn--sm" type="submit"><span class="btn1">Place Order</span></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!--<!==========NEWSLETTER========!>-->
+
+    <section class="newsletter section home__newsletter">
+        <div class="newsletter__container container grid">
+
+            <p class="newsletter__description">
+                Join us on WhatsApp to get daily offers!&nbsp;&nbsp;&nbsp;
+                <a href="https://chat.whatsapp.com/GV7tRTt7L86El4OEOc7cd2" class="btn">Join Now</a>
+            </p>
+        </div>
+    </section>
+</main>
+
+<!--<!==========FOOTER========!>-->
+
+<footer class="footer container">
+    <div class="footer__container grid">
+        <div class="footer__content">
+            <a href="index.html" class="footer__logo">
+                <img src="/img/estore1-logo.png" alt="" class="footer__logo-img">
+            </a>
+
+            <h4 class="footer__subtitle">Content</h4>
+
+            <p class="footer__description">
+                <span>Address:</span> 5622 wellington road,street 32,san Francisco
+            </p>
+
+            <p class="footer__description">
+                <span>Phone:</span> (+91) 9016123474 /(+91) 9016123634
+            </p>
+
+            <p class="footer__description">
+                <span>Hours:</span> 10:00 - 18:00, mon - sat
+            </p>
+
+            <div class="footer__social">
+                <h4 class="footer__subtitle">Follow Me</h4>
+
+                <div class="footer__social-links flex">
+                    <a href="">
+                        <img src="/img/icon-facebook.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-twitter.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-instagram.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-pinterest.svg" alt="" class="footer__social-icon">
+                    </a>
+
+                    <a href="">
+                        <img src="/img/icon-youtube.svg" alt="" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">Address</h3>
+
+            <ul class="footer__links">
+                <li><a href="" class="footer__link">About Us</a> </li>
+                <li><a href="" class="footer__link">Delivery Information</a> </li>
+                <li><a href="" class="footer__link">Privacy Policy</a> </li>
+                <li><a href="" class="footer__link">terms & Conditions</a> </li>
+                <li><a href="" class="footer__link">Contact Us</a> </li>
+                <li><a href="" class="footer__link">Support Center</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__content">
+            <h3 class="footer__title">My Account</h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="/login" th:if="${usern==0}" class="footer__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="footer__link">Logout</a>
+                </li>
+                <li><a th:href="@{/user/cartorder}" class="footer__link">View Cart</a> </li>
+                <li><a th:href="@{/user/whishlist}" class="footer__link">My Wishlist</a> </li>
+                <li><a href="" class="footer__link">track My Order</a> </li>
+                <li><a href="" class="footer__link">Help</a> </li>
+                <li><a href="" class="footer__link">Order</a> </li>
+            </ul>
+        </div>
+
+        <div class="footer__title">
+            <h3 class="footer__title">Secured Payment Gateways</h3>
+
+            <img src="/img/payment-method.png" alt="" class="payment__img">
+        </div>
+    </div>
+
+    <div class="footer__bottom">
+        <p class="copyright">&copy; 2024 E-Store.in. All rights reserved</p>
+        <span class="designer">Devlope by DarshanDhaduk</span>
+        <!--            <span class="designer">Designed by DarshanDhaduk And SnehDhanani</span>-->
+    </div>
+</footer>
+
+<!--<!==========SWIPER JS========!>-->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+<script src="/main.js"></script>
+</body>
+</html>

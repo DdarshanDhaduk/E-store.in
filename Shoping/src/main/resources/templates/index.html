@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!==========FLATION========!>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+    <!==========SWIPER CSS========!>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!==========CSS========!>
+    <link rel="stylesheet" href="./home.css">
+
+    <title>E-STORE</title>
+    <style>
+        #searchResults {
+            border: 1px solid #ccc;
+            position: absolute;
+            max-height: 100px;
+            width: 20rem;
+            overflow-y: auto;
+            background-color: white;
+        }
+        #searchResults div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #searchResults div:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<!--<!==========HEADER========!>-->
+
+<header class="header">
+    <div class="header__top">
+        <div class="header__container container">
+            <div class="header__contact">
+                <span>(+91)9016123474</span>
+            </div>
+
+            <p class="header__alert-news">
+                Super Value Deals - Save more with coupons
+            </p>
+
+            <a href="/login" class="header__top-action">
+                Login In / Sing Up
+            </a>
+        </div>
+    </div>
+    <nav class="nav container">
+        <a href="/home" class="nav__logo">
+            <img src="./img/estore1-logo.png" class="nav__logo-img">
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <div class="nav__menu-top">
+                <a href="/home" class="nav__menu-logo">
+                    <img src="./img/estore1-logo.png" alt="">
+                </a>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="fi fi-rs-cross-small"></i>
+                </div>
+            </div>
+
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a th:href="@{/home}" class="nav__link active-link">Home</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/menushow}" class="nav__link">Shop</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/account}" class="nav__link">My Account</a>
+                </li>
+
+                <li class="nav__item">
+                    <a th:href="@{/user/buymovie}" class="nav__link">BuyMovies</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="/login" th:if="${usern==0}" class="nav__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="nav__link">Logout</a>
+                </li>
+            </ul>
+
+            <div class="header__search">
+                <input type="text" id="keyword" placeholder="Search for items..." autocomplete="off" class="from__inpute"/>
+                <div id="searchResults"></div>
+                <button class="serach__btn">
+                    <img src="./img/search.png" alt="">
+                </button>
+            </div>
+        </div>
+        <div class="header__user-actions">
+            <a th:href="@{/user/whishlist}" class="header__action-btn">
+                <img src="./img/icon-heart.svg" alt="">
+                <span class="count" th:text="${w}"></span>
+            </a>
+
+            <a th:href="@{/user/cartorder}" class="header__action-btn">
+                <img src="./img/icon-cart.svg" alt="">
+                <span class="count" th:text="${c}"></span>
+            </a>
+
+            <div class="header__action-btn nav__toggle" id="nav-toggle">
+                <img src="./img/menu-burger.svg">
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<!--<!==========MAIN========!>-->
+
+<main class="main">
+
+<!--<!==========HOME========!>-->
+
+    <section class="home section--lg">
+        <div class="home__slider">
+            <!-- Slide 1 product1-->
+            <div class="home__container container grid slide active">
+                <div class="home__content">
+                    <span class="home__subtitle">Hot Promotions</span>
+                    <h1 class="home__title">
+                        <div th:text="${headmax1.product_name}"></div><span th:text="${headmax1.brand}"></span>
+                    </h1>
+                    <p class="home__description">
+                        Limited time only! Up to <span class="save__price" th:text="${headmax1.localoff}+'%'"></span> off on this product!
+                    </p>
+                    <a th:href="@{/detail/{id}(id=${headmax1.product_id})}" class="btn">Shop Now</a>
+                </div>
+                <img th:src="@{/imgp/{id}/{name}(id=${headmax1.product_id}, name='i2')}" alt="headoff img" class="home__img" />
+<!--                <img src="../static/img/home-img.png" alt="Promotion 2" class="home__img" />-->
+            </div>
+
+            <!-- Slide 1 product2-->
+            <div class="home__container container grid slide">
+                <div class="home__content">
+                    <span class="home__subtitle">Hot Promotions</span>
+                    <h1 class="home__title">
+                        <div th:text="${headmax2.product_name}"></div><span th:text="${headmax2.brand}"></span>
+                    </h1>
+                    <p class="home__description">
+                        Limited time only! Up to <span class="save__price" th:text="${headmax2.localoff}+'%'"></span> off on this product!
+                    </p>
+                    <a th:href="@{/detail/{id}(id=${headmax2.product_id})}" class="btn">Shop Now</a>
+                </div>
+                <img th:src="@{/imgp/{id}/{name}(id=${headmax2.product_id}, name='i2')}" alt="headoff img" class="home__img" />
+                <!--                <img src="../static/img/home-img.png" alt="Promotion 2" class="home__img" />-->
+            </div>
+
+            <!-- Slide 2-->
+            <div class="home__container container grid slide" th:if="${headlive!=null}">
+                <div class="home__content">
+                    <span class="home__subtitle">Hot Promotions</span>
+                    <h1 class="home__title">
+                        Today's offer<br> <span>Is For</span> <span th:text="${headlive.name}">Diwali</span>
+                    </h1>
+                    <p class="home__description">
+                        Coupon Offer Get an exclusive discount of <span class="save__price" th:text="${headlive.happycoupon}+'%'"></span>off today!
+                    </p>
+                    <a th:href="@{/menushow}" class="btn">Shop Now</a>
+                </div>
+                <img th:src="@{/imgph/{id}(id=${headlive.offid})}" alt="headoff img" class="home__img" />
+                <!--                <img src="../static/img/home-img.png" alt="Promotion 1" class="home__img" />-->
+            </div>
+
+
+            <!-- Navigation Buttons -->
+            <button class="prev" onclick="prevSlide()">&#10094;</button>
+            <button class="next" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </section>
+<!--    <section class="home section&#45;&#45;lg">-->
+<!--        <div class="home__container container grid">-->
+<!--            <div class="home__content">-->
+<!--                <span class="home__subtitle">Hot Promotions</span>-->
+<!--                <h1 class="home__title">-->
+<!--                    Fashion Trending <span>Great collection</span>-->
+<!--                </h1>-->
+<!--                <p class="home__description">-->
+<!--                    Save more with coupons & up to 20% off-->
+<!--                </p>-->
+<!--                <a href="shop.html" class="btn">Shop Now</a>-->
+<!--            </div>-->
+
+<!--            <img src="/img/w1.jpeg" alt="" class="home__img"/>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--<!==========CATEGORIES========!>-->
+
+    <section class="categories container section">
+        <h3 class="section__title"><span>Popular</span> Categories</h3>
+
+        <div class="categories__container swiper">
+            <div class="swiper-wrapper">
+                <a th:href="@{/menuproduct/{id}(id=${menu.menu_id})}" class="category__item swiper-slide" th:each="menu : ${menul}">
+                    <img th:src="@{/imgpm/{id}(id=${menu.menu_id})}" alt="menu img" class="category__img" />
+<!--                    <img src="../static/img/2.jpg" alt="" class="category__img">-->
+                    <h3 class="category__title" th:text="${menu.name}"></h3>
+                </a>
+            </div>
+
+            <div class="swiper-button-next">
+                <i class="fi fi-rs-angle-small-right"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="fi fi-rs-angle-small-left"></i>
+            </div>
+        </div>
+    </section>
+
+<!--<!==========SHOW PRODUCTS========!>-->
+
+    <section class="product section container"  >
+        <div class="tab__btns">
+            <span class="tab__btn active-tab" data-target="#all-product">All product</span>
+            <span class="tab__btn" data-target="#hot-offer">Hot offer</span>
+        </div>
+
+        <div class="tab__items">
+             <div class="tab__item active-tab" content id="all-product" >
+                 <div class="products__container grid">
+                     <div class="product__item" th:each="itemap : ${allproduct}">
+                             <div class="product__banner">
+                                 <a th:href="@{/detail/{id}(id=${itemap.product_id})}" class="product__images">
+                                     <img th:src="@{/imgp/{id}/{name}(id=${itemap.product_id}, name='i1')}" alt="menu img" class="product__img default" />
+                                     <!--            <img src="../static/img/product-4-1.jpg" alt="" class="product__img default">-->
+
+                                     <img th:src="@{/imgp/{id}/{name}(id=${itemap.product_id}, name='im1')}" alt="menu img" class="product__img hover" />
+                                     <!--            <img src="../static/img/product-4-2.jpg" alt="" class="product__img hover">-->
+                                 </a>
+
+                                 <div class="product__actions">
+                                     <a th:href="@{/detail/{id}(id=${itemap.product_id})}" class="action__btn" aria-label="Quick View">
+                                         <i class="fi fi-rs-eye"></i>
+                                     </a>
+
+                                     <a th:href="@{/user/savelike/{id}(id=${itemap.product_id})}" class="action__btn" aria-label="Add To Wishlist">
+                                         <i class="fi fi-rs-heart"></i>
+                                     </a>
+
+<!--                                     <a href="#" class="action__btn" aria-label="Compare">-->
+<!--                                         <i class="fi fi-rs-shuffle"></i>-->
+<!--                                     </a>-->
+                                 </div>
+
+                                 <div class="product__badge light-orange" th:text="${itemap.localoff}+'%'"></div>
+                             </div>
+
+                             <div class="product__content">
+                                 <span class="product__category" th:text="${itemap.name}"></span>
+                                 <a th:href="@{/detail/{id}(id=${itemap.product_id})}">
+                                     <h3 class="product__title" th:text="${itemap.product_name}">Xiaomi 125 cm X Pro 4K </h3>
+                                 </a>
+
+                                 <div class="product__rating">
+                                     <i class="fi fi-rs-star" th:if="${itemap.total_star == 0}"> <span class="product__category" th:text="${0} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                                     <i class="fi fi-rs-star" th:if="${itemap.total_star != 0}"> <span class="product__category" th:text="${itemap.total_star_count/itemap.total_star} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                                 </div>
+
+                                 <div class="product__price flex">
+                                     <span class="new__price" th:text="'₹'+${itemap.price}">₹238</span><br>
+                                         <h6>M.R.P<span class="old__price" th:text="'₹'+${itemap.price+((itemap.price * itemap.localoff)/100)}">₹245</span></h6>
+                                 </div>
+                                 <span class="product__category2"><span class="product__category3" th:text="'save '+${itemap.coupon}+'P'">save ₹1000</span> with coupon<br></span>
+                                 <span class="product__category2">FREE delivery<span class="product__category1" th:text="'in '+${itemap.free_delivery}+' days'"> in 2 days</span></span><br>
+                                 <span class="product__category2">Or fastest delivery<span class="product__category1" th:text="'in '+${itemap.faster_delivery}+' days'"> in 1 days</span></span>
+
+                                 <a th:href="@{/detail/{id}(id=${itemap.product_id})}" class="action__btn cart__btn" aria-label="Add To Cart">
+                                     <i class="fi fi-rs-shopping-bag-add"></i>
+                                 </a>
+                             </div>
+                         </div>
+                 </div>
+             </div>
+            <div class="tab__item" content id="hot-offer">
+                <div class="products__container grid">
+                    <div class="product__item" th:each="itemhp : ${hotoff}">
+                        <div class="product__banner">
+                            <a th:href="@{/detail/{id}(id=${itemhp.product_id})}" class="product__images">
+                                <img th:src="@{/imgp/{id}/{name}(id=${itemhp.product_id}, name='i1')}" alt="menu img" class="product__img default" />
+                                <!--            <img src="../static/img/product-4-1.jpg" alt="" class="product__img default">-->
+
+                                <img th:src="@{/imgp/{id}/{name}(id=${itemhp.product_id}, name='im1')}" alt="menu img" class="product__img hover" />
+                                <!--            <img src="../static/img/product-4-2.jpg" alt="" class="product__img hover">-->
+                            </a>
+
+                            <div class="product__actions">
+                                <a th:href="@{/detail/{id}(id=${itemhp.product_id})}" class="action__btn" aria-label="Quick View">
+                                    <i class="fi fi-rs-eye"></i>
+                                </a>
+
+                                <a th:href="@{/user/savelike/{id}(id=${itemhp.product_id})}" class="action__btn" aria-label="Add To Wishlist">
+                                    <i class="fi fi-rs-heart"></i>
+                                </a>
+
+<!--                                <a href="#" class="action__btn" aria-label="Compare">-->
+<!--                                    <i class="fi fi-rs-shuffle"></i>-->
+<!--                                </a>-->
+                            </div>
+
+                            <div class="product__badge light-orange" th:text="${itemhp.localoff}+'%'"></div>
+                        </div>
+
+                        <div class="product__content">
+                            <span class="product__category" th:text="${itemhp.name}"></span>
+                            <a th:href="@{/detail/{id}(id=${itemhp.product_id})}">
+                                <h3 class="product__title" th:text="${itemhp.product_name}">Xiaomi 125 cm X Pro 4K </h3>
+                            </a>
+
+                            <div class="product__rating">
+                                <i class="fi fi-rs-star" th:if="${itemhp.total_star == 0}"> <span class="product__category" th:text="${0} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                                <i class="fi fi-rs-star" th:if="${itemhp.total_star != 0}"> <span class="product__category" th:text="${itemhp.total_star_count/itemhp.total_star} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                            </div>
+
+                            <div class="product__price flex">
+                                <span class="new__price" th:text="'₹'+${itemhp.price}">₹238</span><br>
+                                <h6>M.R.P<span class="old__price" th:text="'₹'+${itemhp.price+((itemhp.price * itemhp.localoff)/100)}">₹245</span></h6>
+                            </div>
+
+                            <span class="product__category2"><span class="product__category3" th:text="'save '+${itemhp.coupon}+'P'">save ₹1000</span> with coupon<br></span>
+                            <span class="product__category2">FREE delivery<span class="product__category1" th:text="'in '+${itemhp.free_delivery}+' days'"> in 2 days</span></span><br>
+                            <span class="product__category2">Or fastest delivery<span class="product__category1" th:text="'in '+${itemhp.faster_delivery}+' days'"> in 1 days</span></span>
+
+                            <a th:href="@{/detail/{id}(id=${itemhp.product_id})}" class="action__btn cart__btn" aria-label="Add To Cart">
+                                <i class="fi fi-rs-shopping-bag-add"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!--<!==========DEALS========!>-->
+
+    <section class="deals section" th:if="${dealsp!=null}">
+        <div class="deals__container container grid">
+            <div class="deals__item" th:each="deal : ${dealsp}" th:style="'background-image: url(' + @{/imgp/{id}/{name}(id=${deal.product_id}, name='i3')} + ');'">
+                <div class="deals__group">
+                    <h3 class="deals__brand" th:text="${deal.product_name}">deal of the day</h3>
+                    <span class="deals__category" th:text="${deal.brand}">Limited quantities.</span>
+                </div>
+
+                <h4 class="deals__title">Get E-StorePoint <span th:text="${deal.coupon}+'P'" class="new__price"></span>
+                    <br><br>
+                <div class="new__price" th:text="${deal.localoff}+'% OFF'"></div></h4>
+
+              <div class="deals__price flex">
+                    <span class="new__price" th:text="'₹'+${deal.price}">$139.00</span><br>
+                    <h6>M.R.P<span class="old__price" th:text="'₹'+${deal.price+((deal.price * deal.localoff)/100)}">₹245</span></h6>
+                </div>
+
+                <div class="deals__group">
+                    <p class="deals__countdown-text">Hurry up! Offer End In:</p>
+
+                    <div class="countdown" id="countdown1" th:attr="data-endtime=${deal.endtime}">
+                        <div class="countdown__amount">
+                            <p class="countdown__period" id="days">02</p>
+                            <span class="unit">Days</span>
+                        </div>
+                        <div class="countdown__amount">
+                            <p class="countdown__period" id="hours">22</p>
+                            <span class="unit">Hours</span>
+                        </div>
+                        <div class="countdown__amount">
+                            <p class="countdown__period" id="minutes">57</p>
+                            <span class="unit">Mins</span>
+                        </div>
+                        <div class="countdown__amount">
+                            <p class="countdown__period" id="seconds">24</p>
+                            <span class="unit">Sec</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="deals__btn">
+                    <a th:href="@{/detail/{id}(id=${deal.product_id})}" class="btn btn--md">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--<!==========MOVIES========!>-->
+
+    <section class="new__arrivals container section">
+        <h3 class="section__title"><span>All</span> Movies</h3>
+
+        <div class="new__container swiper">
+            <div class="swiper-wrapper">
+                <div class="product__item swiper-slide" th:each="movie : ${movieshow}">
+                    <div class="product__banner">
+                        <a th:href="@{/movie/{id}(id=${movie.movie_id})}" class="product__images">
+                            <img th:src="@{/imgm/{id}/{name}(id=${movie.movie_id}, name='i1')}" alt="headoff img" class="product__img default" />
+<!--                            <img src="/img/m10.jpeg" alt="" class="product__img default">-->
+
+                            <img th:src="@{/imgm/{id}/{name}(id=${movie.movie_id}, name='i2')}" alt="headoff img" class="product__img hover" />
+<!--                            <img src="/img/m2.jpg" alt="" class="product__img hover">-->
+                        </a>
+
+                    </div>
+
+                    <div class="product__content">
+                        <span class="product__category" th:text="${movie.language}">gujrati</span>
+                        <a th:href="@{/movie/{id}(id=${movie.movie_id})}">
+                            <h3 class="product__title" th:text="${movie.name}">kahevatlal</h3>
+                        </a>
+                        <span class="product__category2">TIME : <span class="product__category1" th:text="${movie.durating}"> 2:30hrs</span></span><br>
+                        <span class="product__category2">ReleasDate : <span class="product__category1" th:text="${movie.releaseyear}"> 28/9/2024</span></span><br>
+                        <br>
+                        <div class="product__price flex">
+                            <span class="new__price" th:text="${movie.coupon_price}+'P'">P1000</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-button-next">
+                <i class="fi fi-rs-angle-small-right"></i>
+            </div>
+            <div class="swiper-button-prev">
+                <i class="fi fi-rs-angle-small-left"></i>
+            </div>
+        </div>
+    </section>
+
+
+    <!--<!==========PRODUCTS========!>-->
+
+            <h3 class="section__title"><span>Show</span> Product</h3>
+    <div class="products__container container grid">
+        <div class="product__item" th:each="productsh : ${showproduct8to16}">
+            <div class="product__banner">
+                <a th:href="@{/detail/{id}(id=${productsh.product_id})}" class="product__images">
+                    <img th:src="@{/imgp/{id}/{name}(id=${productsh.product_id}, name='i1')}" alt="headoff img" class="product__img default" />
+                    <!--                            <img src="/img/m10.jpeg" alt="" class="product__img default">-->
+
+                    <img th:src="@{/imgp/{id}/{name}(id=${productsh.product_id}, name='im1')}" alt="headoff img" class="product__img hover" />
+                    <!--                            <img src="/img/m2.jpg" alt="" class="product__img hover">-->
+                </a>
+
+                <div class="product__actions">
+                    <a th:href="@{/detail/{id}(id=${productsh.product_id})}" class="action__btn" aria-label="Quick View">
+                        <i class="fi fi-rs-eye"></i>
+                    </a>
+
+                    <a th:href="@{/user/savelike/{id}(id=${productsh.product_id})}" class="action__btn" aria-label="Add To Wishlist">
+                        <i class="fi fi-rs-heart"></i>
+                    </a>
+
+<!--                    <a href="#" class="action__btn" aria-label="Compare">-->
+<!--                        <i class="fi fi-rs-shuffle"></i>-->
+<!--                    </a>-->
+                </div>
+
+                <div class="product__badge light-orange" th:text="${productsh.localoff}+'%'">Hot</div>
+            </div>
+
+            <div class="product__content">
+                <span class="product__category" th:text="${productsh.name}">T.V</span>
+                <a th:href="@{/detail/{id}(id=${productsh.product_id})}">
+                    <h3 class="product__title" th:text="${productsh.product_name}">Xiaomi 125 cm X Pro 4K </h3>
+                </a>
+
+                <div class="product__rating">
+                    <i class="fi fi-rs-star" th:if="${productsh.total_star == 0}"> <span class="product__category" th:text="${0} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                    <i class="fi fi-rs-star" th:if="${productsh.total_star != 0}"> <span class="product__category" th:text="${productsh.total_star_count/productsh.total_star} + 'out of 5 star'">4.1 out of 5 star</span></i>
+                </div>
+
+                <div class="product__price flex">
+                    <span class="new__price" th:text="${productsh.price}">₹238</span><br>
+                    <h6>M.R.P<span class="old__price" th:text="${productsh.price+((productsh.price * productsh.localoff)/100)}+'₹'">₹245</span></h6>
+                </div>
+                <span class="product__category2"><span class="product__category3" th:text="'save '+${productsh.coupon}+'P'">save ₹1000</span> with coupon<br></span>
+                <span class="product__category2">FREE delivery<span class="product__category1" th:text="'in '+${productsh.free_delivery}+' days'"> in 2 days</span></span><br>
+                <span class="product__category2">Or fastest delivery<span class="product__category1" th:text="'in '+${productsh.faster_delivery}+' days'"> in 1 days</span></span>
+
+                <a th:href="@{/detail/{id}(id=${productsh.product_id})}" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <i class="fi fi-rs-shopping-bag-add"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+<!--<!==========SHOWCASE========!>-->
+
+    <section class="showcase section">
+        <div class="showcase__container container grid">
+
+            <div class="showcase__wrapper">
+                <h3 class="section__title">Hot Off Moovies</h3>
+
+                <div class="showcase__item1" th:each="movie1 : ${maxmovie}">
+                    <a th:href="@{/movie/{id}(id=${movie1.movie_id})}" class="showcase__img-box">
+                        <img th:src="@{/imgm/{id}/{name}(id=${movie1.movie_id}, name='i1')}" alt="movie img" class="showcase__img" />
+<!--                        <img src="./img/showcase-img-1.jpg" alt="" class="showcase__img">-->
+                    </a>
+
+                    <div class="showcase__content">
+                        <a th:href="@{/movie/{id}(id=${movie1.movie_id})}">
+                            <h4 class="showcase__title" th:text="${movie1.name}">Foral Print casual Cotton Dress</h4>
+                        </a>
+
+                        <div class="showcase__price flex">
+                            <span class="new__price" th:text="${movie1.coupon_price}+'P'">$238.85</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase__wrapper">
+                <h3 class="section__title">Hot Off Product</h3>
+
+                <div class="showcase__item" th:each="product1 : ${maxoff}">
+                    <a th:href="@{/detail/{id}(id=${product1.product_id})}" class="showcase__img-box">
+                        <img th:src="@{/imgp/{id}/{name}(id=${product1.product_id}, name='i1')}" alt="menu img" class="showcase__img" />
+<!--                        <img src="./img/showcase-img-4.jpg" alt="" class="showcase__img">-->
+                    </a>
+
+                    <div class="showcase__content">
+                        <a th:href="@{/detail/{id}(id=${product1.product_id})}">
+                            <h4 class="showcase__title" th:text="${product1.product_name}">Foral Print casual Cotton Dress</h4>
+                        </a>
+
+                        <div class="showcase__price flex">
+                            <span class="new__price" th:text="'₹'+${product1.price}">₹238</span><br>
+                            <h6>M.R.P<span class="old__price" th:text="'₹'+${product1.price+((product1.price * product1.localoff)/100)}">₹245</span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase__wrapper">
+                <h3 class="section__title">Show Moovies</h3>
+
+                <div class="showcase__item1" th:each="movie2 : ${moviesa}">
+                    <a th:href="@{/movie/{id}(id=${movie2.movie_id})}" class="showcase__img-box">
+                        <img th:src="@{/imgm/{id}/{name}(id=${movie2.movie_id}, name='i1')}" alt="movie img" class="showcase__img" />
+                        <!--                        <img src="./img/showcase-img-1.jpg" alt="" class="showcase__img">-->
+                    </a>
+
+                    <div class="showcase__content">
+                        <a th:href="@{/movie/{id}(id=${movie2.movie_id})}">
+                            <h4 class="showcase__title" th:text="${movie2.name}">Foral Print casual Cotton Dress</h4>
+                        </a>
+
+                        <div class="showcase__price flex">
+                            <span class="new__price" th:text="${movie2.coupon_price}+'P'">$238.85</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="showcase__wrapper">
+                <h3 class="section__title">Show Product</h3>
+
+                <div class="showcase__item" th:each="product2 : ${productall}">
+                    <a th:href="@{/detail/{id}(id=${product2.product_id})}" class="showcase__img-box">
+                        <img th:src="@{/imgp/{id}/{name}(id=${product2.product_id}, name='i1')}" alt="menu img" class="showcase__img" />
+                        <!--                        <img src="./img/showcase-img-4.jpg" alt="" class="showcase__img">-->
+                    </a>
+
+                    <div class="showcase__content">
+                        <a th:href="@{/detail/{id}(id=${product2.product_id})}">
+                            <h4 class="showcase__title" th:text="${product2.product_name}">Foral Print casual Cotton Dress</h4>
+                        </a>
+
+                        <div class="showcase__price flex">
+                            <span class="new__price" th:text="'₹'+${product2.price}">₹238</span><br>
+                            <h6>M.R.P<span class="old__price" th:text="'₹'+${product2.price+((product2.price * product2.localoff)/100)}">₹245</span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+<!--<!==========NEWSLETTER========!>-->
+
+    <section class="newsletter section home__newsletter">
+        <div class="newsletter__container container grid">
+<!--            grid-template-columns: repeat(2, 3.5fr) 5fr;-->
+<!--            <h3 class="newsletter__title flex">-->
+<!--                <img src="./img/icon-email.svg" alt="" class="newsletter__icon">-->
+<!--                Sing up to newsletter-->
+<!--            </h3>-->
+
+            <p class="newsletter__description">
+                Join us on WhatsApp to get daily offers!&nbsp;&nbsp;&nbsp;
+            <!--<div class="deals__btn">-->
+                <a href="https://chat.whatsapp.com/GV7tRTt7L86El4OEOc7cd2" class="btn">Join Now</a>
+<!--            </div>-->
+            </p>
+
+<!--            <form action="" class="newsletter__form">-->
+<!--                <input type="text" placeholder="Enter your Email" class="newsletter__input">-->
+<!--                <button type="submit" class="newsletter__btn">Subcribe</button>-->
+<!--            </form>-->
+        </div>
+    </section>
+</main>
+
+<!--<!==========FOOTER========!>-->
+
+    <footer class="footer container">
+        <div class="footer__container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+                    <img src="./img/estore1-logo.png" alt="" class="footer__logo-img">
+                </a>
+
+                <h4 class="footer__subtitle">Content</h4>
+
+                <p class="footer__description">
+                    <span>Address:</span> 5622 wellington road,street 32,san Francisco
+                </p>
+
+                <p class="footer__description">
+                    <span>Phone:</span> (+91) 9016123474 /(+91) 9016123634
+                </p>
+
+                <p class="footer__description">
+                    <span>Hours:</span> 10:00 - 18:00, mon - sat
+                </p>
+
+                <div class="footer__social">
+                    <h4 class="footer__subtitle">Follow Me</h4>
+
+                    <div class="footer__social-links flex">
+                        <a href="">
+                            <img src="./img/icon-facebook.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="./img/icon-twitter.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="./img/icon-instagram.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="./img/icon-pinterest.svg" alt="" class="footer__social-icon">
+                        </a>
+
+                        <a href="">
+                            <img src="./img/icon-youtube.svg" alt="" class="footer__social-icon">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__content">
+            <h3 class="footer__title">Address</h3>
+
+            <ul class="footer__links">
+                <li><a href="" class="footer__link">About Us</a> </li>
+                <li><a href="" class="footer__link">Delivery Information</a> </li>
+                <li><a href="" class="footer__link">Privacy Policy</a> </li>
+                <li><a href="" class="footer__link">terms & Conditions</a> </li>
+                <li><a href="" class="footer__link">Contact Us</a> </li>
+                <li><a href="" class="footer__link">Support Center</a> </li>
+            </ul>
+        </div>
+
+            <div class="footer__content">
+            <h3 class="footer__title">My Account</h3>
+
+            <ul class="footer__links">
+                <li>
+                    <a href="/login" th:if="${usern==0}" class="footer__link">Login</a>
+                    <a href="/logout" th:if="${usern==1}" class="footer__link">Logout</a>
+                </li>
+                <li><a th:href="@{/user/cartorder}" class="footer__link">View Cart</a> </li>
+                <li><a th:href="@{/user/whishlist}" class="footer__link">My Wishlist</a> </li>
+                <li><a href="" class="footer__link">track My Order</a> </li>
+                <li><a href="" class="footer__link">Help</a> </li>
+                <li><a href="" class="footer__link">Order</a> </li>
+            </ul>
+        </div>
+
+            <div class="footer__title">
+                <h3 class="footer__title">Secured Payment Gateways</h3>
+
+                <img src="./img/payment-method.png" alt="" class="payment__img">
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <p class="copyright">&copy; 2024 E-Store.in. All rights reserved</p>
+            <span class="designer">Devlope by DarshanDhaduk</span>
+<!--            <span class="designer">Designed by DarshanDhaduk And SnehDhanani</span>-->
+        </div>
+    </footer>
+
+<!--<!==========SLIDETSCRIPCODE========!>-->
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const intervalTime = 5000; // 5 seconds
+    let slideInterval = setInterval(nextSlide, intervalTime);
+
+    // Function to go to the next slide
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Function to go to the previous slide
+    function prevSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Restart interval when navigating manually
+    document.querySelector('.next').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        nextSlide();
+        slideInterval = setInterval(nextSlide, intervalTime);
+    });
+
+    document.querySelector('.prev').addEventListener('click', () => {
+        clearInterval(slideInterval);
+        prevSlide();
+        slideInterval = setInterval(nextSlide, intervalTime);
+    });
+
+</script>
+
+<!--<!==========Json data JS========!>-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+      $('#keyword').on('input', function () {
+          var keyword = $(this).val();
+          if (keyword.length > 0) {
+              $.get('/search?keyword=' + keyword, function (data) {
+                  $('#searchResults').empty();
+                            console.log(data.length);
+                  if (data.length > 0) {
+                      data.forEach(function (product) {
+                          $('#searchResults').append('<div class="link1"><a href="/detail/' + product.product_id + '">' + product.product_name + '</a></div>');
+                      });
+                  } else {
+                      $('#searchResults').append('<div>No products found</div>');
+                  }
+              });
+          } else {
+              $('#searchResults').empty();
+          }
+      });
+  });
+</script>
+
+<!--<!==========SWIPER JS========!>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!--<!==========MAIN JS========!>-->
+    <script src="./main.js" defer></script>
+</body>
+</html>

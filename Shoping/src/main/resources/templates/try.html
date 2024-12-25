@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="/try1.css">
+</head>
+<body>
+<form action="/product/addToCart" method="post">
+  <div class="product-details">
+    <!-- Product Image Gallery -->
+    <div class="image-gallery">
+      <img id="main-image" th:src="@{/img/{id}/i1(id=${pid})}" alt="Product Image">
+      <div class="thumbnails" id="thumbnail-container">
+        <img th:src="@{/img/{id}/{name}(id=${pid}, name='i1')}" onclick="updateMainImage(this.src)">
+        <img th:src="@{/img/{id}/{name}(id=${pid}, name='i2')}" onclick="updateMainImage(this.src)">
+        <img th:src="@{/img/{id}/{name}(id=${pid}, name='i3')}" onclick="updateMainImage(this.src)">
+        <img th:src="@{/img/{id}/{name}(id=${pid}), name='i4'}" onclick="updateMainImage(this.src)">
+      </div>
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info">
+      <h1>Product Name</h1>
+      <p><strong>Price:</strong> ₹<span>XXXX</span></p>
+
+      <!-- Color Options with Radio Buttons -->
+      <div class="color-selection">
+        <label>Select Color:</label><br>
+        <input type="radio" name="selectedColor" value="Red" id="color1" onclick="updateColor('1')" required>
+        <label for="color1">Red</label><br>
+        <input type="radio" name="selectedColor" value="Blue" id="color2" onclick="updateColor('2')">
+        <label for="color2">Blue</label><br>
+        <input type="radio" name="selectedColor" value="Green" id="color3" onclick="updateColor('3')">
+        <label for="color3">Green</label><br>
+        <input type="radio" name="selectedColor" value="Yellow" id="color4" onclick="updateColor('4')">
+        <label for="color4">Yellow</label>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <div class="actions">
+        <button type="submit">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  function updateMainImage(src) {
+      document.getElementById("main-image").src = src;
+  }
+
+  function updateColor(color) {
+      const thumbnailContainer = document.getElementById("thumbnail-container");
+      const images = {
+        1: [`/img/${color}/i1`, `/img/${color}/i2`, `/img/${color}/i3`, `/img/${color}/i4`]
+    };
+
+      // Update Main Image to First Image of Selected Color
+      document.getElementById("main-image").src = images[1][0];
+
+      // Update Thumbnails
+      thumbnailContainer.innerHTML = images[1]
+          .map(img => `<img src="${img}" onclick="updateMainImage('${img}')">`)
+          .join("");
+  }
+</script>
+</body>
+</html>

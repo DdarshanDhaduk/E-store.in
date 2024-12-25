@@ -1,0 +1,82 @@
+.slider-container {
+            width: 80%;
+            height: 100vh;
+            position: relative;
+            margin: auto;
+
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 16px;
+            color: white;
+            font-size: 24px;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ================== BUTTON =================  */
+
+        /* Slider buttons (Play, Buy, Add to My List) */
+        .slider-buttons {
+            position: absolute;
+            top: 40%;
+            left: 20%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .slider-buttons .btn {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-buttons .btn:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
