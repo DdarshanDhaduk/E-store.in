@@ -42,45 +42,73 @@ MySQL database for users, products, orders, movie, whislist...
 📸 Screenshots
 
 ### 🖼️ Homepage
+
+1.
+
 ![s3](https://github.com/user-attachments/assets/f58e31bd-2646-4a4a-a2e9-83626b9e873a)
+
+2.
 
 ![s4](https://github.com/user-attachments/assets/5449e82a-5962-413f-b30d-f22b7a3f0ca1)
 
+3.
+
 ![s5](https://github.com/user-attachments/assets/ac6465ca-a09f-4f9f-9778-109458b2ba40)
+
+4.
 
 ![s6](https://github.com/user-attachments/assets/abac09a1-f57e-4763-bed8-fdcc734ba552)
 
-##Registerpage
+### Registerpage
+
 ![s1](https://github.com/user-attachments/assets/7f442c8c-2abd-423a-89a5-e082d60780e4)
 
-##Loginpage
+### Loginpage
+
 ![s2](https://github.com/user-attachments/assets/4fbf6a49-e94a-42a9-b5b9-174de870d602)
 
-##Productdetailspage
+### Productdetailspage
+
+1.
+
 ![s7](https://github.com/user-attachments/assets/193847b2-96a3-4705-84c8-95e310b0eef6)
+
+2.
 
 ![s8](https://github.com/user-attachments/assets/d868ead2-f57f-43e2-9128-824ed6627504)
 
-##UserAccountpage
+### UserAccountpage
+
 ![s9](https://github.com/user-attachments/assets/9eef0fc3-762c-48b0-9d12-7464cee02ee4)
 
-##BuyMoviepage
+### BuyMoviepage
+
 ![s10](https://github.com/user-attachments/assets/d50786f7-4d51-4f81-b296-9a00b6ae306d)
 
-##Movieshowpage
+### Movieshowpage
+
 ![s12](https://github.com/user-attachments/assets/04436936-6e59-422f-bd5e-5056d2fe6553)
 
-##Wishlistpage
+### Wishlistpage
+
 ![s14](https://github.com/user-attachments/assets/53ccb239-a645-4958-8dca-6f87fb58d874)
 
-##Cartpage
+### Cartpage
+
 ![s15](https://github.com/user-attachments/assets/e0dd7e33-3691-4111-a5c7-6b97f438963b)
 
-##Shopping
+### Shopping
+
 ![s16](https://github.com/user-attachments/assets/72b8fef9-8d53-40b4-a50b-d33512c12420)
 
-##Admin homepage
+### Admin homepage
+
+1.
+
 ![sa1](https://github.com/user-attachments/assets/c039ed7e-26a2-4570-92af-8fb34aed0570)
+
+
+2.
 
 ![sa3](https://github.com/user-attachments/assets/224b970e-6273-4984-90b2-0bbe4df42b6b)
 
