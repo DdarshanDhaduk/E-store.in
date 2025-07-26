@@ -119,6 +119,28 @@ MySQL database for users, products, orders, movie, whislist...
 ![sd1](https://github.com/user-attachments/assets/5c5f6236-0c4e-4528-bab7-231318049bce)
 
 
+### 📱 Responsive UI
+
+### 1.
+![ss1](https://github.com/user-attachments/assets/1cebdf06-6cce-41d7-915d-65349007306d)
+
+### 2.
+![ss2](https://github.com/user-attachments/assets/11a0025c-cc31-4469-857e-8e749840bf24)
+
+### 3.
+![ss3](https://github.com/user-attachments/assets/14693be8-8bd1-4cc6-9c39-f77b510aaf2c)
+
+### 4.
+![ss4](https://github.com/user-attachments/assets/f112ad58-236c-4180-b04c-1b7b49d65d4d)
+
+### 5.
+![ss5](https://github.com/user-attachments/assets/5aafd3a3-ad29-42d4-b20e-665ccc980522)
+
+
+
+
+
+
 ✍️ Author
 👤 Darshan Dhaduk
 📧 dhadukdarshan1676@gmail.com
